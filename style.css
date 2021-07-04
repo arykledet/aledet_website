@@ -13,8 +13,14 @@ header h1 {
     font-size: 40px;
 }
 
+h2 {
+    text-align: left;
+    color: magenta;
+}
+
 code {
     color: lime;
+    text-align: left;
     border-radius: 5px;
 }
 
@@ -28,7 +34,7 @@ pre {
     white-space: pre-wrap;
     overflow-wrap: break-word;
     max-width: 600px;
-    margin: auto;
+    margin: left;
 }
 
 .wide {max-width: inherit;}
