@@ -1,0 +1,34 @@
+body {
+    color: beige;
+    background: #11111A;
+    margin-bottom: 200px;
+}
+
+h1 {
+    text-align: center;
+    color: lightgreen;
+}
+
+header h1 {
+    font-size: 40px;
+}
+
+code {
+    color: lime;
+    border-radius: 5px;
+}
+
+pre {
+    background: #111222;
+    border: 1px solid green;
+    border-radius: 5px;
+    page-break-inside: avoid;
+    font-family: monospace;
+    padding: 1em;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    max-width: 600px;
+    margin: auto;
+}
+
+.wide {max-width: inherit;}
