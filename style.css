@@ -1,12 +1,33 @@
 body {
-    color: beige;
-    background: #11111A;
+    color: #a6b0b8;
+    background: #1f282f;
     margin-bottom: 200px;
+}
+
+.btn {
+    background-color:#283641;
+    border: none;
+    color: white;
+    padding: 7px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #48dae8;
+}
+
+p {
+    border: 1px;
+    padding: 1em;
+    background: #283641; 
+    border-color: darkgrey;
 }
 
 h1 {
     text-align: center;
-    color: lightgreen;
+    /*color:  cyan;*/
+    color: #48dae8;
 }
 
 header h1 {
@@ -15,7 +36,7 @@ header h1 {
 
 h2 {
     text-align: left;
-    color: magenta;
+    color: #3083c1;
 }
 
 code {
