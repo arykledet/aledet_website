@@ -18,11 +18,11 @@ body {
 }
 
 a:link {
-    color: #4179a0;
+    color: #3083c1;
 }
 
 a:visited {
-    color: #3f6a89;
+    color: #3b7099;
 }
 
 a:hover {
@@ -49,6 +49,20 @@ header h1 {
 h2 {
     text-align: left;
     color: #3083c1;
+}
+
+header h2 {
+    text-align: center;
+    font-size: 40px;
+    color: grey
+}
+
+h3 {
+    text-align: left;
+    color: white;
+    font-size: 25px;
+    background: #283641;
+    padding: 0.5em;
 }
 
 code {
