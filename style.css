@@ -17,6 +17,18 @@ body {
     background-color: #48dae8;
 }
 
+a:link {
+    color: #4179a0;
+}
+
+a:visited {
+    color: #3f6a89;
+}
+
+a:hover {
+    color: #48dae8;
+}
+
 p {
     border: 1px;
     padding: 1em;
