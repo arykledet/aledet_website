@@ -38,7 +38,6 @@ p {
 
 h1 {
     text-align: center;
-    /*color:  cyan;*/
     color: #48dae8;
 }
 
@@ -48,13 +47,29 @@ header h1 {
 
 h2 {
     text-align: left;
-    color: #3083c1;
+    color: #3083c1;8/
 }
 
 header h2 {
     text-align: center;
     font-size: 40px;
     color: grey
+}
+
+#aboutme {
+    text-align: left;
+    font-size: 25px;
+    background: #283541;
+    padding: 0.3em;
+    border: 1px;
+    border-style: solid;
+    border-color: #3b7099;
+}
+
+#blog-meta {
+    text-align:left;
+    font-size: 15px;
+    color: white;
 }
 
 h3 {
@@ -66,14 +81,15 @@ h3 {
 }
 
 code {
-    color: lime;
+/*    color: #30ad30;*/
+    color: #33c285;
     text-align: left;
     border-radius: 5px;
 }
 
 pre {
-    background: #111222;
-    border: 1px solid green;
+    background: #191e22;
+    border: 1px solid #4ba27a;
     border-radius: 5px;
     page-break-inside: avoid;
     font-family: monospace;
