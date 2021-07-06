@@ -58,12 +58,13 @@ header h2 {
 
 #aboutme {
     text-align: left;
-    font-size: 25px;
+    font-size: 23px;
     background: #283541;
     padding: 0.3em;
     border: 1px;
     border-style: solid;
     border-color: #3b7099;
+    border-radius: 12px;
 }
 
 #blog-meta {
