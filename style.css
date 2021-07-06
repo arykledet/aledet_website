@@ -38,7 +38,7 @@ p {
 
 h1 {
     text-align: center;
-    color: #48dae8;
+    color: #50c8f9;
 }
 
 header h1 {
@@ -47,13 +47,13 @@ header h1 {
 
 h2 {
     text-align: left;
-    color: #3083c1;8/
+    color: #3083c1;
 }
 
 header h2 {
     text-align: center;
-    font-size: 40px;
-    color: grey
+    font-size: 30px;
+    color: lightgrey;
 }
 
 #aboutme {
