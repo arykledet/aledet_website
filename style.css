@@ -94,8 +94,8 @@ h3 {
     height: 100%;
     width: 320px;
     position: fixed;
-    /* z-index: 1; */
-    /* top: 0; */
+    z-index: 1;
+    top: 0;
     right: 0;
     background-color: #D8C3A5;
     overflow: auto;
@@ -142,7 +142,7 @@ h3 {
       height: auto;
       position: relative;
     }
-    .sidebar a {float: left;}
+    .sidebar a {float: center;}
     .main {margin-right: 0;}
   }
   
