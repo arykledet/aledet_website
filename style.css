@@ -1,7 +1,7 @@
 body {
     /* color: #a6b0b8; */
     /* background: #1f282f; */
-    /* color:#E85A4F; */
+    color:#525150;
     background-color:#EAE7DC;
     margin-bottom: 200px;
 }
@@ -118,7 +118,7 @@ h3 {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #E98074;
+    color: #696864;
     display: block;
 }
 
@@ -138,7 +138,7 @@ h3 {
 
 code {
 /*    color: #30ad30;*/
-    color: #33c285;
+    color: #3fc233;
     text-align: left;
     border-radius: 5px;
 }
@@ -153,8 +153,8 @@ img.right{
 }
 
 pre {
-    background: #191e22;
-    border: 1px solid #4ba27a;
+    background: #222219;
+    border: 2px solid #8E8D8A;
     border-radius: 5px;
     page-break-inside: avoid;
     font-family: monospace;
