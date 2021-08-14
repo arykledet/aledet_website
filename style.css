@@ -1,6 +1,8 @@
 body {
-    color: #a6b0b8;
-    background: #1f282f;
+    /* color: #a6b0b8; */
+    /* background: #1f282f; */
+    /* color:#E85A4F; */
+    background-color:#EAE7DC;
     margin-bottom: 200px;
 }
 
@@ -18,11 +20,13 @@ body {
 }
 
 a:link {
-    color: #3083c1;
+    /* color: #3083c1; */
+    color:#E85A4F;
 }
 
 a:visited {
-    color: #3b7099;
+    /* color: #3b7099; */
+    color:#E98074;
 }
 
 a:hover {
@@ -32,13 +36,16 @@ a:hover {
 p {
     border: 1px;
     padding: 1em;
-    background: #283641; 
-    border-color: darkgrey;
+    color:#525150;
+    /* background: #283641;  */
+    background:#EAE7DC;
+    border-color: #E98074;
 }
 
 h1 {
     text-align: center;
-    color: #50c8f9;
+    /* color: #50c8f9; */
+    color:#E85A4F;
 }
 
 header h1 {
@@ -47,19 +54,21 @@ header h1 {
 
 h2 {
     text-align: left;
-    color: #3083c1;
+    /* color: #3083c1; */
+    color:#E85A4F;
 }
 
 header h2 {
     text-align: center;
     font-size: 30px;
-    color: lightgrey;
+    color: #E85A4F;
 }
 
 #aboutme {
     text-align: left;
     font-size: 23px;
-    background: #283541;
+    /* background: #283541; */
+    background: #D8C3A5;
     padding: 0.3em;
     border: 1px;
     border-style: solid;
@@ -77,8 +86,54 @@ h3 {
     text-align: left;
     color: white;
     font-size: 25px;
-    background: #283641;
+    background: #D8C3A5;
     padding: 0.5em;
+}
+
+.sidenav {
+    height: 100%;
+    width: 320px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #D8C3A5;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #E85A4F;
+    display: block;
+}
+
+.sidenav hr{
+    border:1px solid #EAE7DC;
+}
+
+.sidenav #blogs {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #E98074;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-right:320px;
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top:15px;}
+    .sidenav a {font-size: 18px;}
 }
 
 code {
@@ -86,6 +141,15 @@ code {
     color: #33c285;
     text-align: left;
     border-radius: 5px;
+}
+
+img.left{
+    float: left;
+    padding: 15px;
+}
+
+img.right{
+    float: right;
 }
 
 pre {
