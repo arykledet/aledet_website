@@ -96,7 +96,7 @@ h4 {
 }
 
 span {
-    display: inline-block;
+    /* display: inline-block; */
     width: 100px;
     padding-top: 10px;
     padding-bottom: 10px;
