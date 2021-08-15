@@ -86,8 +86,22 @@ h3 {
     text-align: left;
     color: white;
     font-size: 25px;
-    background: #D8C3A5;
-    padding: 0.5em;
+    padding: 0em;
+}
+
+h4 {
+    text-align: left;
+    color: #696864;
+    font-size: 15;
+}
+
+span {
+    display: inline-block;
+    width: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 6px;
+    padding-left: 6px;
 }
 
 .sidebar {

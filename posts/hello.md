@@ -6,7 +6,7 @@ This is a test
 
 Heres some code:
 
-'''python
+```python
 def hello():
     return 42
-'''
+```
