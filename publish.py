@@ -25,22 +25,6 @@ SIDEBAR = """
         <div class="main">
 """
 
-TOC_HEADER = """
-        <div class="sidebar">
-            <a href="index.html">Home</a>
-            <a href="about_me.html">About me</a>
-            <a href="https://github.com/arykledet">GitHub</a>
-            <hr>
-            <!-- <br> -->
-            <a id="blogs">Blogs - </a>
-"""
-
-TOC_FOOTER = """
-        </div>
-
-        <div class="main">
-"""
-
 FOOTER = """        
         </div>
     </body>
@@ -59,9 +43,17 @@ INDEX = """
         </p>
 """
 
-# File location, Data, Title
+TOC_HEADER = """
+<h2>Blogs<h2>
+<hr>
+"""
+
 TOC_ITEM_TEMPLATE = """
-<a href="{}">{} - {}</a>
+<ul>
+    <span class="post-meta">{}</span>
+    <h3><a href="{}">{}</a><h3>
+</ul>
+
 """
 
 def extract_metadata(fd, filename=None):
@@ -102,50 +94,43 @@ def get_printed_date(metadata):
 
 def make_toc_item(metadata):
     link = '/' + metadata_to_path(metadata)
-    return TOC_ITEM_TEMPLATE.format(link, get_printed_date(metadata), metadata['title'])
-
-def make_sidebar(toc_items):
-    return(
-        TOC_HEADER + 
-        ''.join(toc_items) +
-        TOC_FOOTER
-    )
+    return TOC_ITEM_TEMPLATE.format(get_printed_date(metadata), link, metadata['title'])
 
 def make_toc(toc_items):
-    sidebar = make_sidebar(toc_items)
     return (
         HEADER +
-        sidebar +
+        SIDEBAR +
         INDEX +
+        TOC_HEADER + 
+        ''.join(toc_items) +
         FOOTER
     )
 
 
 if __name__ == '__main__':
 
-    file_location = sys.argv[1]
+    for file_location in sys.argv[1:]:
+        filename = os.path.split(file_location)[1]
+        print("processing: " + filename)
 
-    filename = os.path.split(file_location)[1]
-    print("processing: " + filename)
+        metadata = extract_metadata(open(file_location), filename)
+        path = metadata_to_path(metadata)
 
-    metadata = extract_metadata(open(file_location), filename)
-    path = metadata_to_path(metadata)
+        os.system('pandoc -o /tmp/temp.html {}'.format(file_location))
 
-    os.system('pandoc -o /tmp/temp.html {}'.format(file_location))
+        file_contents = (
+            HEADER + SIDEBAR + open('/tmp/temp_output.html').read() + FOOTER
+        )
 
-    # file_contents = (
-    #     HEADER + SIDEBAR + open('/tmp/temp_output.html').read() + FOOTER
-    # )
+        print("Selected path: " + path)
 
-    # print("Selected path: " + path)
+        truncated_path = os.path.split(path)[0]
 
-    # truncated_path = os.path.split(path)[0]
+        print(truncated_path)
+        os.system('mkdir -p {}'.format(os.path.join(truncated_path)))
 
-    # print(truncated_path)
-    # os.system('mkdir -p {}'.format(os.path.join(truncated_path)))
-
-    # out_location = os.path.join(path)
-    # open(out_location, 'w').write(file_contents)
+        out_location = os.path.join(path)
+        open(out_location, 'w').write(file_contents)
 
     # Append Table of Contents
     metadatas = []
@@ -161,19 +146,5 @@ if __name__ == '__main__':
     toc_items = [make_toc_item(metadata) for metadata in sorted_metadatas]
 
     os.system('mkdir -p {}'.format(os.path.join('site', 'categories')))
-
-    file_contents = (
-        HEADER + make_sidebar(toc_items) + open('/tmp/temp_output.html').read() + FOOTER
-    )
-
-    print("Selected path: " + path)
-
-    truncated_path = os.path.split(path)[0]
-
-    print(truncated_path)
-    os.system('mkdir -p {}'.format(os.path.join(truncated_path)))
-
-    out_location = os.path.join(path)
-    open(out_location, 'w').write(file_contents)
 
     open("index.html", 'w').write(make_toc(toc_items))

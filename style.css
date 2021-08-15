@@ -30,7 +30,7 @@ a:visited {
 }
 
 a:hover {
-    color: #48dae8;
+    color: white;
 }
 
 p {
@@ -86,7 +86,8 @@ h3 {
     text-align: left;
     color: white;
     font-size: 25px;
-    padding: 0em;
+    padding: 0px;
+    line-height: 0;
 }
 
 h4 {
@@ -95,24 +96,37 @@ h4 {
     font-size: 15;
 }
 
+ul {
+    background-color: #d6d0b9;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    left: 0;
+    overflow-x: hidden;
+}
+
 span {
-    width: 100px;
+    /* width: 100px; */
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 6px;
     padding-left: 6px;
 }
 
+.post-meta {
+    font-size: 15px;
+    color: #696864;
+    line-height: 0;
+}
+
 .sidebar {
     height: 100%;
-    width: 320px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
+    width: 100%;
+    position: top;
+    text-align: center;
     background-color: #D8C3A5;
     overflow: auto;
     padding-top: 20px;
+    overflow-x: hidden;
 }
 
 .sidebar a {
@@ -120,7 +134,7 @@ span {
     text-decoration: none;
     font-size: 25px;
     color: #E85A4F;
-    display: block;
+    /* display: block; */
 }
 
 .sidebar hr{
@@ -140,7 +154,6 @@ span {
 }
 
 .main {
-    margin-right:320px;
     padding: 0px 10px;
 }
 
@@ -200,7 +213,7 @@ pre {
 }
   
 .python .kw {
-color: #d84e8e 
+color: #ff75b5 
 }
 
 .python .cf {
