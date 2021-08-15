@@ -196,4 +196,16 @@ pre {
     margin: left;
 }
 
+.python .dv {
+    color: #0086b3 
+}
+  
+.python .kw {
+color: #a71d5d 
+}
+
+.python .cf {
+color: #a71d5d 
+}
+
 .wide {max-width: inherit;}

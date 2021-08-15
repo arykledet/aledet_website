@@ -17,8 +17,8 @@ HEADER = """
 
 SIDEBAR = """
         <div class="sidebar">
-            <a href="index.html">Home</a>
-            <a href="about_me.html">About me</a>
+            <a href="/index.html">Home</a>
+            <a href="/about_me.html">About me</a>
             <a href="https://github.com/arykledet">GitHub</a>
             <hr>
         </div>
@@ -102,7 +102,7 @@ def get_printed_date(metadata):
     return year + ' ' + month + ' ' + day
 
 def make_toc_item(metadata):
-    link = metadata_to_path(metadata)
+    link = '/' + metadata_to_path(metadata)
     return TOC_ITEM_TEMPLATE.format(link, get_printed_date(metadata), metadata['title'])
 
 def make_sidebar(toc_items):
@@ -120,7 +120,6 @@ def make_toc(toc_items):
         INDEX +
         FOOTER
     )
-
 
 
 if __name__ == '__main__':
