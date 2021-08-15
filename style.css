@@ -183,7 +183,7 @@ img.right{
 }
 
 pre {
-    background: #383828;
+    background: #222219;
     border: 2px solid #8E8D8A;
     border-radius: 5px;
     page-break-inside: avoid;
@@ -196,15 +196,15 @@ pre {
 }
 
 .python .dv {
-    color: #0086b3 
+    color: #34beec 
 }
   
 .python .kw {
-color: #a71d5d 
+color: #d84e8e 
 }
 
 .python .cf {
-color: #a71d5d 
+color: #d84e8e 
 }
 
 .wide {max-width: inherit;}
