@@ -1,51 +1,44 @@
+:root {
+    --white: #F3EFFE;
+    --dark_purple: #36174D;
+    --light_purple: #6F36BC;
+    --light_magenta: #ffaec4;
+    --magenta: #FF4778;
+    --dark_magenta: #9e2a49;
+    --grey: #272727;
+    --light_grey: #696468;
+}
+
 body {
-    /* color: #a6b0b8; */
-    /* background: #1f282f; */
-    color:#525150;
-    background-color:#EAE7DC;
+    color:var(--grey);
+    background-color:var(--white);
     margin-bottom: 200px;
 }
 
-.btn {
-    background-color:#283641;
-    border: none;
-    color: white;
-    padding: 7px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #48dae8;
-}
-
 a:link {
-    /* color: #3083c1; */
-    color:#E85A4F;
+    color:var(--magenta);
 }
 
 a:visited {
-    /* color: #3b7099; */
-    color:#E98074;
+    color:var(--dark_magenta);
 }
 
 a:hover {
-    color: white;
+    color: var(--light_magenta);
 }
 
 p {
     border: 1px;
     padding: 1em;
-    color:#525150;
+    color:var(--grey);
     /* background: #283641;  */
-    background:#EAE7DC;
-    border-color: #E98074;
+    background:var(--white);
 }
 
 h1 {
     text-align: center;
     /* color: #50c8f9; */
-    color:#E85A4F;
+    color:var(--grey);
 }
 
 header h1 {
@@ -55,36 +48,20 @@ header h1 {
 h2 {
     text-align: left;
     /* color: #3083c1; */
-    color:#E85A4F;
+    color:var(--grey);
 }
 
-header h2 {
-    text-align: center;
-    font-size: 30px;
-    color: #E85A4F;
-}
-
-#aboutme {
-    text-align: left;
-    font-size: 23px;
-    /* background: #283541; */
-    background: #D8C3A5;
-    padding: 0.3em;
-    border: 1px;
-    border-style: solid;
-    border-color: #3b7099;
-    border-radius: 12px;
-}
 
 #blog-meta {
     text-align:left;
     font-size: 15px;
-    color: white;
+    color: var(--white);
 }
 
 h3 {
     text-align: left;
-    color: white;
+    color: var(--grey);
+    background: black;
     font-size: 25px;
     padding: 0px;
     line-height: 0;
@@ -92,12 +69,12 @@ h3 {
 
 h4 {
     text-align: left;
-    color: #696864;
+    color: var(--light_grey);
     font-size: 15;
 }
 
 ul {
-    background-color: #d6d0b9;
+    background-color:var(--white);
     padding-top: 10px;
     padding-bottom: 10px;
     left: 0;
@@ -123,7 +100,7 @@ span {
     width: 100%;
     position: top;
     text-align: center;
-    background-color: #D8C3A5;
+    background-color: var(--dark_purple);
     overflow: auto;
     padding-top: 20px;
     overflow-x: hidden;
@@ -133,12 +110,12 @@ span {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #E85A4F;
+    color:var(--magenta);
     /* display: block; */
 }
 
 .sidebar hr{
-    border:1px solid #EAE7DC;
+    border:1px solid var(--white);
 }
 
 .sidebar #blogs {
@@ -150,7 +127,7 @@ span {
 }
 
 .sidebar a:hover {
-    color: #f1f1f1;
+    color: var(--light_magenta);
 }
 
 .main {

@@ -33,7 +33,6 @@ FOOTER = """
 
 INDEX = """
         <header><h1>Aryk P. Ledet</h1></header>
-        <hr>
         <img src="imgs/dachshund.png" width=200px height=100px alt="me.png" class="left">
 
         <p>
