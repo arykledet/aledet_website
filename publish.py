@@ -33,11 +33,9 @@ FOOTER = """
 
 INDEX = """
         <header><h1>Aryk P. Ledet</h1></header>
-        <img src="imgs/dachshund.png" width=200px height=100px alt="me.png" class="left">
+        <img src="imgs/rotation.png" width=200px height=100px alt="me.png" class="left">
 
         <p>
-            <h2>Oh hai there</h2>
-
             Hello I'm Aryk and welcome to my webpage. This site is still a work in progress, but I plan on writing mini technology blogs going over old personal projects and topics I find interesting.
         </p>
 """
