@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en-US" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<head>
+    <title>How These Posts Work</title>
+    <meta charset="utf-8"/>
+    <link rel="shortcut icon" href="transistor.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="main">
+<h1 id="my-first-post-hello-world">My first post… Hello World!</h1>
+<p>This post is a test for my python publisher and also a break down of how it works! The publisher takes posts made in markdown and then converts them into html using pandoc before appending the link to my main page. I was inspired by <a href="https://vitalik.ca/">Vitalik Buterins website</a> and made my own (simpler) version of his python script. This website was mostly an excuse for me to practice my html and css skills but I’ve decided to also make it a place for me to write mini blogs.</p>
+<h2 id="breaking-down-the-publisher">Breaking down the publisher</h2>
+<p>I first declare several string constants with pythons string formatting braces. These constants are used to style each post so that they follow the main pages themes.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>HEADER <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;!DOCTYPE html&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;html lang=&quot;en-US&quot; data-color-mode=&quot;auto&quot; data-light-theme=&quot;light&quot; data-dark-theme=&quot;dark&quot;&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;head&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;title&gt;</span><span class="sc">{}</span><span class="st">&lt;/title&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;meta charset=&quot;utf-8&quot;/&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;link rel=&quot;shortcut icon&quot; href=&quot;transistor.ico&quot; type=&quot;image/x-icon&quot; /&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/head&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;body&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;div class=&quot;main&quot;&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>FOOTER <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/div&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/body&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/html&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>POST_HEADER <span class="op">=</span> <span class="st">&quot;&quot;&quot;&lt;h2&gt;Posts&lt;h2&gt;</span><span class="ch">\n</span><span class="st">&lt;ul&gt;&quot;&quot;&quot;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>POST_TEMPLATE <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;div class=&quot;post&quot;&gt;&lt;a href=&quot;</span><span class="sc">{}</span><span class="st">&quot;&gt;</span><span class="sc">{}</span><span class="st">&lt;/a&gt;&lt;/div&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;div class=&quot;post-meta&quot;&gt;</span><span class="sc">{}</span><span class="st">&lt;/div&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;&quot;&quot;</span></span></code></pre></div>
+<p>Next I get the filename from the file path and pass that to the read_metadata() function</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    file_path <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">IndexError</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Usage is: publish.py &lt;post.md&gt;&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    sys.exit()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>filename <span class="op">=</span> os.path.split(file_path)[<span class="dv">1</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Appending </span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the metadata from the md file headers</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>metadata <span class="op">=</span> read_metadata(file_path, filename)</span></code></pre></div>
+<p>The read_metadata() functions first job is to make sure the file is a markdown file. It then parses the words within closed brackets as keys for the <em>metadata</em> dictionary. The values for each key is on the same line in closed parentheses, so we use a couple of start and end indices to help parse the data.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_metadata(path: <span class="bu">str</span>, filename: <span class="bu">str</span> <span class="op">=</span> <span class="va">None</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Extract the metadata into a dict&quot;&quot;&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    metadata <span class="op">=</span> {}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check if the file exists and is markdown</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> filename:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> filename[<span class="op">-</span><span class="dv">3</span>:] <span class="op">==</span> <span class="st">&quot;.md&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        metadata[<span class="st">&quot;filename&quot;</span>] <span class="op">=</span> <span class="ss">f&quot;</span><span class="sc">{</span>filename[:<span class="op">-</span><span class="dv">3</span>]<span class="sc">}</span><span class="ss">.html&quot;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Parse all lines with metadata from the md file</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># exit once line does not contain closed brakets</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Meta data format:</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># [key]: &lt;&gt; (value)</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(path, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            line <span class="op">=</span> <span class="bu">file</span>.readline()</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Check if line has metadata bracket</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> line[<span class="dv">0</span>] <span class="op">==</span> <span class="st">&#39;[&#39;</span> <span class="kw">and</span> <span class="st">&#39;]&#39;</span> <span class="kw">in</span> line:</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                key <span class="op">=</span> line[<span class="dv">1</span>:line.find(<span class="st">&#39;]&#39;</span>)]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                val_start <span class="op">=</span> line.find(<span class="st">&#39;(&#39;</span>)<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                val_end <span class="op">=</span> line.find(<span class="st">&#39;)&#39;</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Category key can contain multiple categories </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> key <span class="kw">in</span> (<span class="st">&quot;category&quot;</span>, <span class="st">&quot;categories&quot;</span>):</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                    metadata[<span class="st">&quot;categories&quot;</span>] <span class="op">=</span> <span class="bu">set</span>(</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                        [x.strip().lower() <span class="cf">for</span> x <span class="kw">in</span> line[val_start:val_end].split(<span class="st">&#39;,&#39;</span>)]</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">assert</span> <span class="st">&#39;&#39;</span> <span class="kw">not</span> <span class="kw">in</span> metadata[<span class="st">&quot;categories&quot;</span>]</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                    metadata[key] <span class="op">=</span> line[val_start:val_end]</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> metadata</span></code></pre></div>
+<p>The metadata is then used to create the posts final path.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> metadata_to_path(metadata:<span class="bu">dict</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Generate a file path using the date&quot;&quot;&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> os.path.join(<span class="st">&quot;blogs&quot;</span>,metadata[<span class="st">&quot;date&quot;</span>],metadata[<span class="st">&quot;filename&quot;</span>])</span></code></pre></div>
+<p>The magic of transforming md to html code is handled by pandocs, because no one has time write their own (good) md to html converter.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>os.system(<span class="ss">f&quot;pandoc -o /tmp/temp.html </span><span class="sc">{</span>file_path<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<p>Now I take all those long constants from before and format them into the posts html source.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_post(title:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Format the html code for the post&quot;&quot;&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;/tmp/temp.html&quot;</span>, <span class="st">&#39;r&#39;</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        body <span class="op">=</span> <span class="bu">file</span>.read()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> HEADER.<span class="bu">format</span>(title) <span class="op">+</span> body <span class="op">+</span> FOOTER</span></code></pre></div>
+<p>Now we need to make sure the path for the post exists and then write to it.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    truncated_path <span class="op">=</span> os.path.split(path)[<span class="dv">0</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    os.system(<span class="ss">f&quot;mkdir -p </span><span class="sc">{</span>truncated_path<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create the post html page</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(path, <span class="st">&#39;w&#39;</span>) <span class="im">as</span> out_file:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        out_file.write(file_contents)</span></code></pre></div>
+<p>Lastly we must append the link to the new post the main page. I’m lazy and decided to just use the posts header on my mainpage as a token to tell my script where to append the posts. This way if I ever want to change my homepage I only need to change the html code in one place.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> append_to_page(post_template:<span class="bu">str</span><span class="op">=</span><span class="va">None</span>, page:<span class="bu">str</span><span class="op">=</span><span class="st">&quot;index.html&quot;</span>):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Appends after the poster header in the index page&quot;&quot;&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Throw an error if no post_template</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">isinstance</span>(post_template, <span class="bu">type</span>(<span class="va">None</span>)) <span class="kw">is</span> <span class="va">False</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(page, <span class="st">&quot;r+&quot;</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> <span class="bu">file</span>.read()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        index <span class="op">=</span> data.find(POST_HEADER) <span class="op">+</span> <span class="bu">len</span>(POST_HEADER)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> data[:index] <span class="op">+</span> <span class="st">&#39;&#39;</span>.join(post_template) <span class="op">+</span> data[index:]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Go back to the begining of the file and write the new data</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">file</span>.seek(<span class="dv">0</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">file</span>.write(data)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Truncate just incase the file is somehow smaller</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">file</span>.truncate()</span></code></pre></div>
+
+</div>
+</body>
+</html>

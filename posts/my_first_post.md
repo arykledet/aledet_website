@@ -1,12 +1,14 @@
-#!/usr/bin/python3
-"""
-Author: Aryk Ledet
-Desc: Publish and organize markdown posts as blogs to website using pandocs to convert md to html
-"""
+[category]: <> (General)
+[date]: <> (2022/03/28)
+[title]: <> (How These Posts Work)
 
-import os
-import sys
+# My first post... Hello World!
+This post is a test for my python publisher and also a break down of how it works! The publisher takes posts made in markdown and then converts them into html using pandoc before appending the link to my main page. I was inspired by [Vitalik Buterins website](https://vitalik.ca/) and made my own (simpler) version of his python script. This website was mostly an excuse for me to practice my html and css skills but I've decided to also make it a place for me to write mini blogs.
 
+## Breaking down the publisher
+
+I first declare several string constants with pythons string formatting braces. These constants are used to style each post so that they follow the main pages themes.
+```python
 HEADER = """
 <!DOCTYPE html>
 <html lang="en-US" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
@@ -27,14 +29,32 @@ FOOTER = """
 </html>
 """
 
-POST_HEADER = """<h2>Posts<h2>\n"""
+POST_HEADER = """<h2>Posts<h2>\n<ul>"""
 
 POST_TEMPLATE = """
 <div class="post"><a href="{}">{}</a></div>
 <div class="post-meta">{}</div>
-
 """
+```
+Next I get the filename from the file path and pass that to the read_metadata() function
 
+```python
+try:
+    file_path = sys.argv[1]
+except IndexError:
+    print("Usage is: publish.py <post.md>")
+    sys.exit()
+
+filename = os.path.split(file_path)[1]
+print(f"Appending {filename}")
+
+# Extract the metadata from the md file headers
+metadata = read_metadata(file_path, filename)
+```
+
+The read_metadata() functions first job is to make sure the file is a markdown file. It then parses the words within closed brackets as keys for the *metadata* dictionary. The values for each key is on the same line in closed parentheses, so we use a couple of start and end indices to help parse the data. 
+
+```python
 def read_metadata(path: str, filename: str = None) -> dict:
     """Extract the metadata into a dict"""
     metadata = {}
@@ -69,28 +89,46 @@ def read_metadata(path: str, filename: str = None) -> dict:
                 break
 
     return metadata
+```
 
-def metadata_to_path(metadata:dict) -> str:
+The metadata is then used to create the posts final path.
+
+```python
+    def metadata_to_path(metadata:dict) -> str:
     """Generate a file path using the date"""
     return os.path.join("blogs",metadata["date"],metadata["filename"])
+```
 
-def get_printed_date(metadata:dict) -> str:
-    """Convert the date into a prettier format""" 
-    year, month, day = metadata["date"].split('/')
-    month = ("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")[int(month)-1]
-    return f"{month} {day} {year}"
+The magic of transforming md to html code is handled by pandocs, because no one has time write their own (good) md to html converter.
 
+```python
+os.system(f"pandoc -o /tmp/temp.html {file_path}")
+```
+
+Now I take all those long constants from before and format them into the posts html source.
+
+```python
 def format_post(title:str) -> str:
     """Format the html code for the post"""
     with open("/tmp/temp.html", 'r') as file:
         body = file.read()
     return HEADER.format(title) + body + FOOTER
+```
 
-def make_post_template(metadata:dict) -> str:
-    """Append the metadata to the index pages post template"""
-    link = '/' + metadata_to_path(metadata)
-    return POST_TEMPLATE.format(link, metadata['title'], get_printed_date(metadata))
+Now we need to make sure the path for the post exists and then write to it.
 
+```python
+    truncated_path = os.path.split(path)[0]
+    os.system(f"mkdir -p {truncated_path}")
+
+    # Create the post html page
+    with open(path, 'w') as out_file:
+        out_file.write(file_contents)
+```
+
+Lastly we must append the link to the new post the main page. I'm lazy and decided to just use the posts header on my mainpage as a token to tell my script where to append the posts. This way if I ever want to change my homepage I only need to change the html code in one place.
+
+```python
 def append_to_page(post_template:str=None, page:str="index.html"):
     """Appends after the poster header in the index page"""
     # Throw an error if no post_template
@@ -105,36 +143,4 @@ def append_to_page(post_template:str=None, page:str="index.html"):
         file.write(data)
         # Truncate just incase the file is somehow smaller
         file.truncate()
-
-if __name__ == '__main__':
-    try:
-        file_path = sys.argv[1]
-    except IndexError:
-        print("Usage is: publish.py <post.md>")
-        sys.exit()
-
-    filename = os.path.split(file_path)[1]
-    print(f"Appending {filename}")
-
-    # Extract the metadata from the md file headers
-    metadata = read_metadata(file_path, filename)
-    # Use the date to format the file path
-    path = metadata_to_path(metadata)
-
-    # Use pandoc to convert md to html
-    os.system(f"pandoc -o /tmp/temp.html {file_path}")
-
-    # Format the pandoc page to sites format
-    file_contents = format_post(metadata["title"])
-
-    # Create the file path for the post
-    truncated_path = os.path.split(path)[0]
-    os.system(f"mkdir -p {truncated_path}")
-
-    # Create the post html page
-    with open(path, 'w') as out_file:
-        out_file.write(file_contents)
-
-    # Add post to the list of posts on main page
-    append_to_page(make_post_template(metadata))
-    
+```

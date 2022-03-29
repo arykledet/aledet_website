@@ -1,19 +1,60 @@
+/* Color Variables */
 :root {
-    --white: #F3EFFE;
+    --bg_color: #fdfaef;
+    --body_color: #fffefa;
     --dark_purple: #36174D;
-    --light_purple: #6F36BC;
     --light_magenta: #ffaec4;
     --magenta: #FF4778;
     --dark_magenta: #9e2a49;
-    --grey: #272727;
+    --dark_grey: #272727;
     --light_grey: #696468;
 }
 
+/* Main sections */
+
 body {
-    color:var(--grey);
-    background-color:var(--white);
-    margin-bottom: 200px;
+    color:var(--dark_grey);
+    font-family: Helvetica, sans-serif;
+    background-color:var(--bg_color); 
+    min-height: 100vh;
+    margin-bottom: 0;
+    max-width: 1000px;
+    margin: auto;
 }
+
+.main {
+    background-color: var(--body_color);
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--dark_magenta);
+    min-height: 100vh;
+    padding: 0px 10px;
+}
+
+.title {
+    color: black;
+    /* font-family: Helvetica, sans-serif; */
+    font-family: "Georgia, Palatino, Times, Roman"; font-weight: bold;
+    text-align:center;
+    font-size: 35pt;
+    padding: 50px;
+}
+
+.post {
+    font-size:15pt;
+    width: 100%;
+    padding-left: 20px;
+}
+
+.post-meta {
+    text-align: left;
+    font-size: 10pt;
+    color: #696864;
+    margin-bottom: 1em;
+    padding-left: 20px;
+}
+
+/* Link coloring */
 
 a:link {
     color:var(--magenta);
@@ -29,38 +70,25 @@ a:hover {
 
 p {
     border: 1px;
-    padding: 1em;
-    color:var(--grey);
-    /* background: #283641;  */
-    background:var(--white);
+    color:var(--dark_grey);
 }
+
+/* Headers */
 
 h1 {
-    text-align: center;
-    /* color: #50c8f9; */
-    color:var(--grey);
-}
-
-header h1 {
-    font-size: 40px;
+    text-align: left;
+    color:var(--dark_grey);
 }
 
 h2 {
     text-align: left;
     /* color: #3083c1; */
-    color:var(--grey);
-}
-
-
-#blog-meta {
-    text-align:left;
-    font-size: 15px;
-    color: var(--white);
+    color:var(--dark_grey);
 }
 
 h3 {
     text-align: left;
-    color: var(--grey);
+    color: var(--dark_grey);
     background: black;
     font-size: 25px;
     padding: 0px;
@@ -73,8 +101,16 @@ h4 {
     font-size: 15;
 }
 
+hr {
+    color: var(--dark_magenta);
+    max-width: 1000px;
+    margin-left:-10px;
+    margin-right: -10px;
+}
+
+/* Lists */
+
 ul {
-    background-color:var(--white);
     padding-top: 10px;
     padding-bottom: 10px;
     left: 0;
@@ -89,23 +125,6 @@ span {
     padding-left: 6px;
 }
 
-.post-meta {
-    font-size: 15px;
-    color: #696864;
-    line-height: 0;
-}
-
-.sidebar {
-    height: 100%;
-    width: 100%;
-    position: top;
-    text-align: center;
-    background-color: var(--dark_purple);
-    overflow: auto;
-    padding-top: 20px;
-    overflow-x: hidden;
-}
-
 .sidebar a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -115,7 +134,7 @@ span {
 }
 
 .sidebar hr{
-    border:1px solid var(--white);
+    border:1px solid var(--bg_color);
 }
 
 .sidebar #blogs {
@@ -130,34 +149,6 @@ span {
     color: var(--light_magenta);
 }
 
-.main {
-    padding: 0px 10px;
-}
-
-@media screen and (max-width: 700px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-    }
-    .sidebar a {float: center;}
-    .main {margin-right: 0;}
-  }
-  
-  @media screen and (max-width: 400px) {
-    .sidebar a {
-      text-align: center;
-      float: none;
-    }
-  }
-
-code {
-/*    color: #30ad30;*/
-    color: #3fc233;
-    text-align: left;
-    border-radius: 5px;
-}
-
 img.left{
     float: left;
     padding: 15px;
@@ -165,31 +156,79 @@ img.left{
 
 img.right{
     float: right;
+    border: solid;
+    border-color: var(--dark_magenta);
+    border-width : 1px;
+    border-radius: 2px;
 }
 
-pre {
-    background: #222219;
-    border: 2px solid #8E8D8A;
-    border-radius: 5px;
+/* Code formatting */
+
+.sourceCode {
+    text-align: center;
+}
+
+.sourceCode pre {
+    display: inline-block;
+    background: #f0f8fc;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: blue;
+    border-radius: 3px;
+
     page-break-inside: avoid;
     font-family: monospace;
     padding: 1em;
     white-space: pre-wrap;
     overflow-wrap: break-word;
-    max-width: 600px;
-    margin: left;
+
+    width: 100ch;
+    text-align: left;
+}
+
+/* Shrink the code box when the screen is smaller than the body */
+@media screen and (max-width: 1000px){
+    .sourceCode pre {
+        display: inline-block;
+        background: #f0f8fc;
+    
+        border-style: solid;
+        border-width: 1px;
+        border-color: blue;
+        border-radius: 3px;
+    
+        page-break-inside: avoid;
+        font-family: monospace;
+        padding: 1em;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+    
+        width: 80%;
+        text-align: left;
+    }
+}
+
+.sourceCode span{
+    color: black;
+}
+
+/* Python specific coloring */
+.python .co,
+.python .st {
+    color: green
 }
 
 .python .dv {
-    color: #34beec 
+    color: blue;
 }
   
 .python .kw {
-color: #ff75b5 
+color: blue;
 }
 
 .python .cf {
-color: #d84e8e 
+color: mediumvioletred; 
 }
 
 .wide {max-width: inherit;}
