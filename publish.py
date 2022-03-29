@@ -7,8 +7,7 @@ Desc: Publish and organize markdown posts as blogs to website using pandocs to c
 import os
 import sys
 
-HEADER = """
-<!DOCTYPE html>
+HEADER = """<!DOCTYPE html>
 <html lang="en-US" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
 <head>
     <title>{}</title>
