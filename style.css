@@ -1,30 +1,21 @@
 /* Color Variables */
 :root {
-    --bg_color: #532c1f;
-    --body_color: #E9E7E4;
-    --outline_color: #532c1f;
+    --bg_color: #ffffff;
+    --body_color: var(--bg_color);
+    --outline_color: #000000;
 
-    --link_new: #a05353;
-    --link_old: #532c1f;
-    --link_hover: #B89789;
-
-    --dark_purple: #36174D;
-    --light_magenta: #ffaec4;
-    --magenta: #FF4778;
-    --dark_magenta: #9e2a49;
-    --dark_grey: #272727;
-    --light_grey: #696468;
+    --link_new: #B4CFB0;
+    --link_old: #94B49F;
+    --link_hover: #789395;
 }
 
 /* Main sections */
 
 body {
     color:var(--dark_grey);
-    font-family: Helvetica, sans-serif;
-    background: rgb(177,96,69);
-    background: linear-gradient(90deg, rgba(83,44,31,1) 0%, rgba(215,119,87,1) 53%, rgba(83,44,31,1) 100%);
+    font-family: 'Ubuntu', sans-serif;
 
-    /* background-color:var(--bg_color);  */
+    background-color:var(--bg_color); 
     min-height: 100vh;
     margin-bottom: 0;
     max-width: 1000px;
@@ -33,9 +24,9 @@ body {
 
 .main {
     background-color: var(--body_color);
-    border-style: solid;
-    border-width: 2px;
-    border-color: var(--outline_color);
+    /* border-style: solid; */
+    /* border-width: 2px; */
+    /* border-color: var(--outline_color); */
     min-height: 100vh;
     padding: 0px 10px;
 }
@@ -43,7 +34,9 @@ body {
 .title {
     color: black;
     /* font-family: Helvetica, sans-serif; */
-    font-family: "Georgia, Palatino, Times, Roman"; font-weight: bold;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    /* font-family: "Georgia, Palatino, Times, Roman"; font-weight: bold; */
     text-align:center;
     font-size: 35pt;
     padding: 50px;
@@ -158,17 +151,21 @@ span {
     color: var(--light_magenta);
 }
 
-img.left{
+img.title_icon_left{
     float: left;
-    padding: 15px;
+}
+img.title_icon_right{
+    float: right;
+    transform: scaleX(-1);
 }
 
-img.right{
+img.profile{
     float: right;
     border: solid;
+    margin: 30px;
     border-color: var(--outline_color);
     border-width : 1px;
-    border-radius: 2px;
+    border-radius: 50%;
 }
 
 /* Code formatting */
