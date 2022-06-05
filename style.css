@@ -161,11 +161,11 @@ img.title_icon_right{
 
 img.profile{
     float: right;
-    border: solid;
+    /* border: solid; */
     margin: 30px;
     border-color: var(--outline_color);
     border-width : 1px;
-    border-radius: 50%;
+    /* border-radius: 2%; */
 }
 
 /* Code formatting */
